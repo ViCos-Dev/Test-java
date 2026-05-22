@@ -1,9 +1,9 @@
 package com.example;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -16,12 +16,8 @@ public class DiceScoreTest {
     @Mock
     private Ide de;
 
+    @InjectMocks
     private DiceScore diceScore;
-
-    @BeforeEach
-    void setUp() {
-        diceScore = new DiceScore(de);
-    }
 
     @Test
     @DisplayName("Doit retourner valeur * 2 + 10 quand les deux dés sont identiques")
@@ -44,9 +40,19 @@ public class DiceScoreTest {
     }
 
     @Test
-    @DisplayName("Doit retourner la valeur la plus haute quand les dés sont différents")
-    void devraitRetournerLaPlusHauteValeurQuandLesDeSontDifferents() {
+    @DisplayName("Doit retourner la valeur la plus haute quand le premier dé est inférieur au second")
+    void devraitRetournerLePlusGrandQuandLePremierDeEstInferieurAuSecond() {
         when(de.getRoll()).thenReturn(3, 5);
+
+        int result = diceScore.getScore();
+
+        assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("Doit retourner la valeur la plus haute quand le premier dé est supérieur au second")
+    void devraitRetournerLePlusGrandQuandLePremierDeEstSuperieurAuSecond() {
+        when(de.getRoll()).thenReturn(5, 3);
 
         int result = diceScore.getScore();
 
