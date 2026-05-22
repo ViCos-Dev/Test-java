@@ -1,7 +1,9 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RechercheVille {
 
@@ -16,6 +18,14 @@ public class RechercheVille {
     }
 
     public List<String> Rechercher(String mot) {
-        throw new NotImplementedException();
+        if (mot.equals("*")) {
+            return new ArrayList<>(villes);
+        }
+        if (mot.length() < 2) {
+            throw new NotFoundException("Le texte de recherche doit contenir au moins 2 caractères");
+        }
+        return villes.stream()
+                .filter(ville -> ville.toLowerCase().contains(mot.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }
