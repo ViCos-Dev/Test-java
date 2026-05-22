@@ -13,7 +13,7 @@ public class FibTest {
     // --- Range 1 ---
 
     @Test
-    void avecRange1LeResultatNEstPasVide() {
+    void devraitRetournerUneListeNonVideQuandLeRangeEst1() {
         // Arrange
         Fib fib = new Fib(1);
 
@@ -25,7 +25,7 @@ public class FibTest {
     }
 
     @Test
-    void avecRange1LeResultatCorrespondALaListeContenant0() {
+    void devraitRetournerLaListe0QuandLeRangeEst1() {
         // Arrange
         Fib fib = new Fib(1);
 
@@ -39,7 +39,7 @@ public class FibTest {
     // --- Range 6 ---
 
     @Test
-    void avecRange6LeResultatContientLeChiffre3() {
+    void devraitRetournerUneListeContenantLeChiffre3QuandLeRangeEst6() {
         // Arrange
         Fib fib = new Fib(6);
 
@@ -51,7 +51,7 @@ public class FibTest {
     }
 
     @Test
-    void avecRange6LeResultatContient6Elements() {
+    void devraitRetourner6ElementsQuandLeRangeEst6() {
         // Arrange
         Fib fib = new Fib(6);
 
@@ -63,7 +63,7 @@ public class FibTest {
     }
 
     @Test
-    void avecRange6LeResultatNePasContenir4() {
+    void devraitRetournerUneListeNePasContenirLeChiffre4QuandLeRangeEst6() {
         // Arrange
         Fib fib = new Fib(6);
 
@@ -75,7 +75,7 @@ public class FibTest {
     }
 
     @Test
-    void avecRange6LeResultatCorrespondALaListeContenant0_1_1_2_3_5() {
+    void devraitRetournerLaListe0_1_1_2_3_5QuandLeRangeEst6() {
         // Arrange
         Fib fib = new Fib(6);
 
@@ -87,7 +87,7 @@ public class FibTest {
     }
 
     @Test
-    void avecRange6LeResultatEstTrieDemanierAscendante() {
+    void devraitRetournerUneListeTrieeDeManierAscendanteQuandLeRangeEst6() {
         // Arrange
         Fib fib = new Fib(6);
 
