@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Frame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">exercice9</a> &gt; <a href="index.source.html" class="el_package">com.example</a> &gt; <span class="el_source">Frame.java</span></div><h1>Frame.java</h1><pre class="source lang-java linenums">package com.example;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Frame {
+    private int score;
+    private boolean lastFrame;
+    private IGenerateur generateur;
+    private List&lt;Roll&gt; rolls;
+
+<span class="fc" id="L12">    public Frame(IGenerateur generateur, boolean lastFrame) {</span>
+<span class="fc" id="L13">        this.lastFrame = lastFrame;</span>
+<span class="fc" id="L14">        this.generateur = generateur;</span>
+<span class="fc" id="L15">        this.rolls = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L16">    }</span>
+
+    public boolean makeRoll() {
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (!canRoll()) {</span>
+<span class="fc" id="L20">            return false;</span>
+        }
+<span class="fc" id="L22">        int maxPins = computeMaxPins();</span>
+<span class="fc" id="L23">        int pins = generateur.randomPin(maxPins);</span>
+<span class="fc" id="L24">        rolls.add(new Roll(pins));</span>
+<span class="fc" id="L25">        score += pins;</span>
+<span class="fc" id="L26">        return true;</span>
+    }
+
+    private boolean canRoll() {
+<span class="fc" id="L30">        int rollCount = rolls.size();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (!lastFrame) {</span>
+<span class="fc bfc" id="L32" title="All 6 branches covered.">            return rollCount == 0 || (rollCount == 1 &amp;&amp; !isStrike());</span>
+        }
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (rollCount &gt;= 3) return false;</span>
+<span class="fc bfc" id="L35" title="All 6 branches covered.">        if (rollCount == 2) return isStrike() || isSpare();</span>
+<span class="fc" id="L36">        return true;</span>
+    }
+
+    private boolean isStrike() {
+<span class="pc bpc" id="L40" title="1 of 4 branches missed.">        return !rolls.isEmpty() &amp;&amp; rolls.get(0).getPins() == 10;</span>
+    }
+
+    private boolean isSpare() {
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        return rolls.size() &gt;= 2</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                &amp;&amp; rolls.get(0).getPins() &lt; 10</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                &amp;&amp; rolls.get(0).getPins() + rolls.get(1).getPins() == 10;</span>
+    }
+
+    private int computeMaxPins() {
+<span class="fc" id="L50">        int rollCount = rolls.size();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (rollCount == 0) return 10;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (!lastFrame) {</span>
+<span class="fc" id="L53">            return 10 - rolls.get(0).getPins();</span>
+        }
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (rollCount == 1) {</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            return isStrike() ? 10 : 10 - rolls.get(0).getPins();</span>
+        }
+        // rollCount == 2, last frame, 3rd roll
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (isStrike()) {</span>
+<span class="fc" id="L60">            int roll2Pins = rolls.get(1).getPins();</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            return roll2Pins == 10 ? 10 : 10 - roll2Pins;</span>
+        }
+        // spare: fresh set of pins
+<span class="fc" id="L64">        return 10;</span>
+    }
+
+    public int getScore() {
+<span class="fc" id="L68">        return score;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
